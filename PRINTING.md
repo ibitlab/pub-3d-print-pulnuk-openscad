@@ -1,147 +1,154 @@
-# Друк, збирання, лиття
+**English** · [Українська](PRINTING.uk.md)
 
-Робочий документ для того, хто це друкує. Що воно таке і як влаштоване —
-[README.uk.md](README.uk.md); параметри і внутрішня механіка — [MODEL.md](MODEL.md).
+# Printing, assembly, casting
 
-## Що потрібно
+A working document for whoever prints this. What it is and how it works —
+[README.md](README.md); parameters and internal mechanics — [MODEL.md](MODEL.md).
+
+## What you need
 
 | | |
 |---|---|
-| OpenSCAD | 2021+ (перевірено на 2026.09), бекенд Manifold |
-| Python 3 | автоматичні перевірки під час рендеру |
-| Принтер | сопло 0.4, стіл від 70 × 50 мм |
-| Пластик | TPU — сильфон і прокладка; PETG або ASA — коробка й кришка; PLA або PETG — кільце й ковпачок |
-| Кріплення | 4 × M3×6 (плата до стійок), 4 × M3×10 (кришка до коробки) |
-| Клей | ціакрин або епоксидка — приклеїти головку ковпачка на шток |
+| OpenSCAD | 2021+ (tested on 2026.09), Manifold backend |
+| Python 3 | the automatic checks during a render |
+| Printer | 0.4 nozzle, bed from 70 × 50 mm |
+| Filament | TPU — boot and gasket; PETG or ASA — box and lid; PLA or PETG — ring and cap |
+| Fasteners | 4 × M3×6 (board to standoffs), 4 × M3×10 (lid to box) |
+| Glue | cyanoacrylate or epoxy — to glue the cap head onto the stem |
 
-## Перед першим друком звір свій модуль
+## Before the first print, check your module
 
-Сітки монтажних отворів KY-023 немає в datasheet-ах, а спільнотний макет
-суперечить сам собі. У моделі стоять значення, зміряні на реальному HW-504,
-але **крок отворів плати не перевірений** — для стійок M3 промах в 1 мм уже
-критичний. Зміряй на своїй платі крок отворів і висоту штока під шапкою; якщо
-не збігається, це правиться параметрами: [MODEL.md](MODEL.md).
+The KY-023 mounting hole grid is not in any datasheet, and the community mock-up
+contradicts itself. The model uses values measured on a real HW-504, but **the
+board hole pitch is unverified** — for M3 standoffs a 1 mm miss is already
+critical. Measure the hole pitch and the stem height under the knob on your own
+board; if they differ, it is fixed with parameters: [MODEL.md](MODEL.md).
 
-Звірити положення джойстика на платі допомагає `ky023_mock.stl` — макет плати,
-не для друку.
+`ky023_mock.stl` helps you check the joystick position on the board — it is a
+mock-up, not for printing.
 
-## Отримати STL
+## Getting the STLs
 
 ```
 ./render.sh
 ```
 
-Створює `versions/vNNN-дата-час/` і кладе туди всі STL, PNG і `render.log`.
-Імена файлів починаються з номера версії (`v027_ky023_box.stl`), щоб у слайсері
-було видно, з якого рендера деталь. Нічого правити в коді для цього не треба.
+Creates `versions/vNNN-date-time/` and puts every STL, PNG and `render.log`
+there. File names start with the version number (`v027_ky023_box.stl`) so that
+the slicer shows which render a part came from. Nothing in the code needs editing
+for this.
 
-У `render.log` наприкінці — автоматичні перевірки: кожен STL має бути одним
-замкненим тілом і друкуватися без підтримок. Якщо там `FAIL`, у слайсер краще
-не нести.
+At the end of `render.log` are the automatic checks: every STL must be one closed
+body and must print without supports. If there is a `FAIL` there, better not take
+it to the slicer.
 
-## Що друкувати
+## What to print
 
-Усе по одній штуці:
+One of each:
 
-| Деталь | Файл `vNNN_…` | Пластик | Як кладеться на стіл |
+| Part | File `vNNN_…` | Filament | How it sits on the bed |
 |---|---|---|---|
-| Сильфон із громметом | `ky023_boot.stl` | TPU | громметом униз, гофрою догори |
-| Прокладка кришки | `ky023_gasket.stl` | TPU | плоско, канавкою догори |
-| Розпірне кільце | `ky023_ring.stl` | PLA/PETG | фланцем на стіл |
-| Ковпачок: головка | `ky023_cap_head.stl` | PLA/PETG | диском на стіл |
-| Ковпачок: шток | `ky023_cap_stem.stl` | PLA/PETG | бобишкою на стіл, **з каймою** |
-| Коробка | `ky023_box.stl` | PETG/ASA | догори дном, панеллю на стіл |
-| Кришка | `ky023_lid.stl` | PETG/ASA | зовнішньою площиною на стіл |
+| Boot with grommet | `ky023_boot.stl` | TPU | grommet down, corrugation up |
+| Lid gasket | `ky023_gasket.stl` | TPU | flat, groove up |
+| Expander ring | `ky023_ring.stl` | PLA/PETG | flange on the bed |
+| Cap: head | `ky023_cap_head.stl` | PLA/PETG | disc on the bed |
+| Cap: stem | `ky023_cap_stem.stl` | PLA/PETG | boss on the bed, **with a brim** |
+| Box | `ky023_box.stl` | PETG/ASA | upside down, panel on the bed |
+| Lid | `ky023_lid.stl` | PETG/ASA | outer face on the bed |
 
-Усі STL уже повернуті так, як друкуються, — просто кинь у слайсер.
+Every STL is already rotated the way it prints — just drop it into the slicer.
 
-Ще в папці лежать, але **не для друку**: `ky023_mock.stl` — макет плати;
-`ky023_boot_cast.stl` — як має виглядати силіконова відливка. А
-`ky023_boot_deep.stl` — другий варіант гофри (одна глибока складка замість двох
-дрібних): на папері м'якший, ще не перевірений у пластику. Можна надрукувати
-обидва й порівняти на тому самому модулі — решта деталей однакова.
+Also in the folder, but **not for printing**: `ky023_mock.stl` — the board mock-up;
+`ky023_boot_cast.stl` — what the silicone casting should look like. And
+`ky023_boot_deep.stl` is the second bellows option (one deep fold instead of two
+shallow ones): softer on paper, not yet verified in plastic. You can print both
+and compare them on the same module — every other part is identical.
 
-## Налаштування друку
+## Print settings
 
-**TPU (сильфон, прокладка).** Ширина лінії 0.42, шар 0.15–0.2, 15–20 мм/с,
-обдув 40–60 %, кайма 3 мм. Заповнення 0 % для сильфона і 100 % для прокладки,
-`gap fill` вимкнути, «detect thin walls» / Arachne увімкнути. Стінка гофри —
-один прохід сопла (0.46 мм), тож після слайсингу переглянь шари на висотах
-згинів: порожніх шарів бути не має (`render.log` ловить це як `thin wall`).
+**TPU (boot, gasket).** Line width 0.42, layer 0.15–0.2, 15–20 mm/s, fan 40–60 %,
+brim 3 mm. Infill 0 % for the boot and 100 % for the gasket, turn `gap fill` off,
+turn "detect thin walls" / Arachne on. The corrugation wall is a single nozzle
+pass (0.46 mm), so after slicing look through the layers at the bend heights:
+there must be no empty layers (`render.log` catches this as `thin wall`).
 
-**Коробка і кришка (PETG/ASA).** Для герметичності: 4 периметри, 6 суцільних
-шарів панелі, потік 102–105 %. Ущільнювальне ребро на бортику коробки
-друкується останніми шарами двома лініями по 0.4 мм.
+**Box and lid (PETG/ASA).** For sealing: 4 perimeters, 6 solid panel layers, flow
+102–105 %. The sealing rib on the box rim is printed by the last layers as two
+0.4 mm lines.
 
-**Ковпачок і кільце (PLA/PETG).** 3 периметри. Шток — обов'язково з каймою, це
-стовпчик Ø6.8 × 26 мм. Підтримок не треба ніде: усі містки ≤ 8 мм, фаски 45°.
+**Cap and ring (PLA/PETG).** 3 perimeters. The stem must have a brim — it is a
+Ø6.8 × 26 mm column. No supports anywhere: every bridge is ≤ 8 mm, chamfers 45°.
 
-## Збирання
+## Assembly
 
-1. Припаяти кабель, прикрутити плату до стійок кришки 4 × M3×6. Кабель вивести
-   крізь отвір, залитий компаундом (отвору під сальник за замовчуванням немає).
-2. Зняти штатну шапку-дзвін із джойстика.
-3. Надіти прокладку канавкою на ребро бортика коробки — вона тримається сама.
-   Завести кришку з платою знизу (джойстик заходить під отвір панелі),
-   затягнути 4 × M3×10 навхрест.
-4. Просунути шток ковпачка бобишкою вниз крізь верхній отвір сильфона і
-   натягнути валик сильфона на канавку штока (Ø18.5, натяг ~6 %), щоб він ліг
-   на губу фланця.
-5. Опустити сильфон зі штоком на модуль: шток сідає на шток джойстика (гніздо
-   з лисками, 2 орієнтації), громмет входить в отвір панелі до клацання губи
-   під панеллю, конус стає врівень із панеллю.
-6. Зсередини коробки вставити розпірне кільце носком догори в отвір громмета і
-   дотиснути, поки фланець не сяде під губу. Крізь губу воно проходить легко;
-   тиснути треба тільки останні ~0.7 мм, поки поясок не стане під ребро
-   громмета. Якщо туго або навпаки бовтається — це правиться параметром, див.
+1. Solder the cable, screw the board to the lid standoffs with 4 × M3×6. Take the
+   cable out through a hole potted with compound (there is no gland hole by
+   default).
+2. Remove the stock bell knob from the joystick.
+3. Fit the gasket onto the rib on the box rim by its groove — it holds itself
+   there. Bring the lid with the board in from below (the joystick goes under the
+   panel opening) and tighten 4 × M3×10 crosswise.
+4. Push the cap stem, boss down, through the top opening of the boot and stretch
+   the boot bead onto the stem groove (Ø18.5, ~6 % interference) so it seats on
+   the flange lip.
+5. Lower the boot with the stem onto the module: the stem seats on the joystick
+   shaft (a socket with flats, 2 orientations), the grommet enters the panel
+   opening until the lip clicks under the panel, and the cone comes flush with the
+   panel.
+6. From inside the box, insert the expander ring nose-up into the grommet opening
+   and push until the flange seats under the lip. It passes the lip easily; you
+   only need to push the last ~0.7 mm, until the band sits under the grommet rib.
+   If it is too tight or, conversely, loose — that is a parameter, see
    [MODEL.md](MODEL.md).
-7. Приклеїти головку ковпачка на заглушку штока (Ø8, зазор 0.2 мм). Її плоский
-   низ накриває канавку з валиком.
+7. Glue the cap head onto the stem plug (Ø8, 0.2 mm clearance). Its flat bottom
+   covers the groove with the bead.
 
-## Лиття сильфона силіконом (опційно)
+## Casting the boot in silicone (optional)
 
-Надрукований сильфон упирається в мінімальну стінку: 0.46 мм — це один прохід
-сопла, тонше не буває, а жорсткість росте як куб товщини. Силікон обходить це
-матеріалом — A20 приблизно в 50 разів м'якший за TPU 95A, тож навіть стінка
-1.2 мм дає ~втричі м'якший сильфон (на A10 — ~вп'ятеро). Геометрія та сама:
-той самий громмет, валик, кільце і шток, обидві гофри.
+A printed boot runs into a minimum wall: 0.46 mm is one nozzle pass, it does not
+get thinner, and stiffness grows as the cube of thickness. Silicone gets around
+that with the material — A20 is roughly 50 times softer than TPU 95A, so even a
+1.2 mm wall gives a boot about three times softer (with A10, about five times).
+The geometry is the same: the same grommet, bead, ring and stem, both bellows
+profiles.
 
-Молд рахований і перевірений булевими тестами (`check_fit.scad`), але ще не
-друкований і не заливаний.
+The mould is calculated and verified by boolean tests (`check_fit.scad`), but not
+yet printed and not yet poured.
 
-Надрукувати (PLA або PETG, 3 периметри, заповнення 20–30 %):
+To print (PLA or PETG, 3 perimeters, 20–30 % infill):
 
-| Деталь | Файл `vNNN_…` | Шт. |
+| Part | File `vNNN_…` | Qty |
 |---|---|---|
-| Половина мушлі | `ky023_mould_shell.stl` | **2** (однакові) |
-| Стрижень, нижня половина | `ky023_mould_core_lower.stl` | 1 |
-| Стрижень, верхня половина | `ky023_mould_core_upper.stl` | 1 |
-| Штифти мушлі | `ky023_mould_dowel.stl` | **2** |
-| Штифт стрижня | `ky023_mould_pin.stl` | 1 |
+| Shell half | `ky023_mould_shell.stl` | **2** (identical) |
+| Core, lower half | `ky023_mould_core_lower.stl` | 1 |
+| Core, upper half | `ky023_mould_core_upper.stl` | 1 |
+| Shell dowels | `ky023_mould_dowel.stl` | **2** |
+| Core pin | `ky023_mould_pin.stl` | 1 |
 
-Для глибокої гофри — ті самі файли з `_deep` (штифт стрижня спільний).
-Мушля друкується площиною розняття догори, підтримок не треба.
-Ще знадобиться: 4 × M4×50 з гайками (стяг 40 мм), шприц на 10 мл, роздільник
-або тонкий вазелін.
+For the deep bellows, the same files with `_deep` (the core pin is shared).
+The shell prints parting-plane up, no supports needed.
+You will also need: 4 × M4×50 with nuts (40 mm clamp), a 10 ml syringe, and
+release agent or thin petroleum jelly.
 
-**Скільки силікону.** Сама деталь — 2.85 см³ (звичайна гофра) або 3.02 (`deep`);
-разом із ризером і портами молд бере 3.6 / 3.8 мл. Мішати варто 5–6 мл: решта
-лишиться у шприці й посудині.
+**How much silicone.** The part itself is 2.85 cm³ (standard bellows) or 3.02
+(`deep`); together with the riser and the ports, the mould takes 3.6 / 3.8 ml.
+Mix 5–6 ml: the rest stays in the syringe and the cup.
 
-Порядок:
+Procedure:
 
-1. **Спершу перевірити сумісність.** Платиновий силікон інгібується деякими
-   пластиками — мазок на обрізку того самого прутка, чи застигне за добу.
-   Дізнаватися про це на повному молді — дороге задоволення. Потім роздільник
-   на всі поверхні.
-2. Нижню половину стрижня — у дно мушлі, штифт, зверху верхню половину; її
-   бобишка виходить крізь дах мушлі.
-3. Стягнути половини 4 × M4 через вуха; штифти центрують.
-4. Дегазувати силікон і шприцом у нижній порт, поки не полізе з другого порту
-   і з вентиляційних отворів угорі.
-5. Після полімеризації: болти геть, розняти мушлю, верхню половину стрижня
-   витягнути вгору за бобишку, нижню — вниз.
-6. Обрізати облой по лінії розняття (на громметі акуратно — це ущільнювальна
-   поверхня) і кільце ризера зверху.
+1. **Check compatibility first.** Platinum silicone is inhibited by some plastics
+   — put a smear on an offcut of the same filament and see whether it cures within
+   a day. Finding this out on a full mould is an expensive lesson. Then release
+   agent on every surface.
+2. Lower core half into the bottom of the shell, then the pin, then the upper half
+   on top; its boss comes out through the roof of the shell.
+3. Clamp the halves with 4 × M4 through the ears; the dowels centre them.
+4. Degas the silicone and syringe it into the lower port until it comes out of the
+   second port and the vent holes at the top.
+5. After curing: bolts off, split the shell, pull the upper core half up by its
+   boss and the lower one down.
+6. Trim the flash along the parting line (carefully on the grommet — that is a
+   sealing surface) and the riser ring on top.
 
-Звірити результат можна з `ky023_boot_cast.stl` — це те, що молд має дати.
+You can check the result against `ky023_boot_cast.stl` — that is what the mould
+should produce.

@@ -20,7 +20,6 @@ Box with lid: 62.4 × 39.1 × 23 mm, ≈53 mm tall including the cap.
 
 Next: **[PRINTING.md](PRINTING.md)** — printing, assembly, silicone casting ·
 **[MODEL.md](MODEL.md)** — how it works and which parameters to turn.
-Both are in Ukrainian for now; this README is the full English overview.
 
 ---
 
