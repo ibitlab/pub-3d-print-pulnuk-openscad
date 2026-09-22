@@ -1,0 +1,10 @@
+# Everything generated inside a version folder is ignored;
+# the sources copied there (.scad, .sh) stay tracked.
+# docs/img is the exception: those PNGs are committed, see render_docs.sh.
+versions/*/*
+!versions/*/*.scad
+!versions/*/*.sh
+!versions/*/*.py
+
+# macOS leaves these everywhere; do not rely on a machine-local global ignore.
+.DS_Store
