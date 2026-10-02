@@ -14,6 +14,10 @@ Fully parametric, a single OpenSCAD file, not one part needs supports.
 
 Box with lid: 62.4 × 39.1 × 23 mm, ≈53 mm tall including the cap.
 
+| Printed and assembled on a KY-023 | The silicone mould, printed | TPU gasket and boot |
+| --- | --- | --- |
+| ![The printed enclosure with the TPU boot and cap, in hand](docs/img/photo-assembled.jpg) | ![The printed mould: shell halves and cores](docs/img/photo-mould-printed.jpg) | ![The printed TPU gasket and the boot with its expander ring](docs/img/photo-gasket-and-ring.jpg) |
+
 ```
 ./render.sh     # every STL + PNG + the automatic checks, into versions/vNNN-.../
 ```
@@ -106,8 +110,8 @@ in one piece, being a barrel between two narrower openings — and pins. It is c
 bottom-up with a syringe: gravity will not fill a 1.2 mm annular gap over 28 mm of
 height.
 
-Procedure and quantities for silicone are in [PRINTING.md](PRINTING.md). So far
-the mould is calculated and verified by boolean tests, but not printed.
+Procedure and quantities for silicone are in [PRINTING.md](PRINTING.md). The mould
+is printed (photo at the top); no boot has been cast in it yet.
 
 ## How it grew
 
@@ -159,7 +163,8 @@ And `compare_versions.sh` is the only honest way to tell "I rewrote the code" fr
 
 - **Printed and assembled:** `v006` and `v019`. The default bellows profile is the
   one that is on the real module.
-- **Not verified in plastic:** the `deep` bellows, the silicone mould.
+- **Not verified in plastic:** the `deep` bellows.
+- **Printed, not cast yet:** the silicone mould.
 - **Not measured:** the mounting hole pitch of the board. The KY-023 grid is not in
   any datasheet, and the community mock-up contradicts itself (text 26.7 × 20.3,
   STL 26.5 × 19.0). The model uses 26.7 × 20.3 — for M3 standoffs a 1 mm miss is
