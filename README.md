@@ -97,9 +97,12 @@ and hole positions against your own module on screen:
 
 ## Silicone instead of TPU
 
-A printed boot runs into a 0.46 mm minimum wall. Silicone gets around that with
-the material instead: A20 is roughly 50 times softer than TPU 95A, so even a
-1.2 mm wall gives a boot about three times softer. The geometry stays the same.
+The printed TPU boot seals and re-centres, but in use it turned out too stiff
+for this job, and a printed boot cannot get thinner than its 0.46 mm wall.
+Silicone gets around that with the material instead: A20 is roughly 50 times
+softer than TPU 95A, so even a 1.2 mm wall gives a boot about three times
+softer. The geometry stays the same, so the next step is a boot cast in
+platinum-cure silicone.
 
 ![Section through the mould](docs/img/mould.png)
 
@@ -111,7 +114,7 @@ bottom-up with a syringe: gravity will not fill a 1.2 mm annular gap over 28 mm 
 height.
 
 Procedure and quantities for silicone are in [PRINTING.md](PRINTING.md). The mould
-is printed (photo at the top); no boot has been cast in it yet.
+is printed (photo at the top); the first cast is pending.
 
 ## How it grew
 
@@ -164,7 +167,8 @@ And `compare_versions.sh` is the only honest way to tell "I rewrote the code" fr
 - **Printed and assembled:** `v006` and `v019`. The default bellows profile is the
   one that is on the real module.
 - **Not verified in plastic:** the `deep` bellows.
-- **Printed, not cast yet:** the silicone mould.
+- **Printed, casting pending:** the mould for a platinum-cure silicone boot. The
+  TPU boot works but is too stiff for this job, which is why the mould exists.
 - **Not measured:** the mounting hole pitch of the board. The KY-023 grid is not in
   any datasheet, and the community mock-up contradicts itself (text 26.7 × 20.3,
   STL 26.5 × 19.0). The model uses 26.7 × 20.3 — for M3 standoffs a 1 mm miss is
